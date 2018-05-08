@@ -7,13 +7,31 @@ window.onload = function(){
 
   //Drawing the board score
   let boardScore = 0;
-  //ctx.fillRect (6, 12, 150, 20);//Position reference
+  //ctx.fillRect (6, 12, 150, 20);//Score Position reference
   //ctx.fillRect (780, 10, 155, 20);//Reference for timer
 
   //Defining game timing and countdown timer
-  var min = 3; //
+  var min = 2;
   var sec = 59;
   let timer = null;
+
+  //Simple timer
+  function timing(){
+    ctx.clearRect(780, 10, 155, 20);
+    ctx.fillText("Time: " + min + ":" + sec, 800, 30);
+    sec--;
+    if(sec < 10){
+      sec = "0" + sec;
+    }
+    if(sec == "0-1"){
+      min--;
+      sec = 60;
+    }
+    if(min < 0 && sec == 60){
+      clearInterval(timer);
+      timer = null;
+    }
+  }
 
   //Defining ghosts images
   let defaultGhost = new Image();
@@ -43,14 +61,14 @@ window.onload = function(){
     
     //New random position each iteration
     var time = randomBtw(300, 900);//Random time to ghost appears
-    setTimeout(function() {
+    
+    function ghostBusting(){
+      if(timer != null) loop();
       let ghostPosition = popGhost(); //Getting the ghost position
-      loop();
-      
       let hit = false; //Trigger when hit ghost
       window.onclick = function(e){
-        let clickPos = [e.layerX, e.layerY]; //Getting the click position
 
+        let clickPos = [e.layerX, e.layerY]; //Getting the click position
         ctx.fillRect(clickPos[0],clickPos[1],5,5); //Pointing clicked spots
 
         //Checking when player hits ghost and increasing score
@@ -69,32 +87,17 @@ window.onload = function(){
           }
         }//I will put an else here with the 'miss' sound
         
-      }
+      }//Window onclick function
 
-    }, time);
-  }());
+    }//GhostBusting function
+    
+    setTimeout(ghostBusting, time);//Random time for ghost appearing
 
+  }());//Loop function
 
-  //Simple timer
-  function timing(){
-    ctx.clearRect(780, 10, 155, 20);
-    ctx.fillText("Time: " + min + ":" + sec, 800, 30);
-    sec--;
-    if(sec < 10){
-      sec = "0" + sec;
-    }
-    if(sec == "0-1"){
-      min--;
-      sec = 60;
-    }
-    if(min < 0 && sec == 60){
-      clearInterval(timer);
-    }
-  }
   timer = setInterval(timing, 1000);
 
-
-}
+}//Window onload function
 
 
   ///REFERENCE FUNCTION - SHOWING MOUSE POSITION SCREEN
