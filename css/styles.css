@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 675px;
+
+}
+
+#main-canvas {
+  background: rgb(153, 247, 217);
+  cursor: url(blaster.cur) 0 0 , default;
+}
