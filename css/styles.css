@@ -13,5 +13,5 @@ body {
 
 #main-canvas {
   background: rgb(153, 247, 217);
-  cursor: url(blaster.cur) 0 0 , default;
+  cursor: url(blaster.cur) 13 13 , default;
 }
