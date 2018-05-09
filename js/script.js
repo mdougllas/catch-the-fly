@@ -1,3 +1,7 @@
+/*
+Style the game and put on the sound effects
+*/
+
 window.onload = function(){
 
   //Defining canvas and styles
@@ -5,28 +9,45 @@ window.onload = function(){
   ctx = canvas.getContext("2d");
   ctx.font = '24px Titan One';
 
-  //Drawing the board score
-  let boardScore = 0;
   //ctx.fillRect (6, 12, 150, 20);//Score Position reference
+  //ctx.fillRect (200, 10, 110, 22);//LVL Position reference
+  //ctx.fillRect (420, 10, 170, 22);//Bullets spent reference
   //ctx.fillRect (780, 10, 155, 20);//Reference for timer
 
+  //Drawing the top info
+  let boardScore = 0,
+      lvl = 1,
+      bullets = 15,
+      starterTime = [1100, 1601],
+
   //Defining game timing and countdown timer
-  var min = 2;
-  var sec = 59;
-  let timer = null;
+      min = 0,
+      sec = 30,
+      timer = null,
+
+  //Forcing last iteration after bullets go 0
+      iterations = 0,
+      lastFrame = 1;
 
   //Simple timer
   function timing(){
-    ctx.clearRect(780, 10, 155, 20);
-    ctx.fillText("Time: " + min + ":" + sec, 800, 30);
+    ctx.clearRect(780, 10, 155, 20);//Clear canvas where timer goes
+    ctx.fillText("Time: " + min + ":" + sec, 800, 30);//Draw timer on canvas
     sec--;
+    
     if(sec < 10){
-      sec = "0" + sec;
+      sec = "0" + sec;//Fixing the left 0 on timer
     }
     if(sec == "0-1"){
       min--;
       sec = 60;
     }
+    //Stoping timer and game if bullets goes to 0
+    if(bullets <= 0){
+      clearInterval(timer);
+      lastFrame --;
+    }
+    //Stoping timer and setting timer null to finish the game
     if(min < 0 && sec == 60){
       clearInterval(timer);
       timer = null;
@@ -48,50 +69,89 @@ window.onload = function(){
     let randomX = randomBtw(30, 920);
     let randomY = randomBtw(30, 610);
     ctx.clearRect(ghostPos[0],ghostPos[1],35,35); //Cler last ghost
-    ctx.drawImage(defaultGhost, randomX,randomY, 35, 35 ); //Create new ghost
+    ctx.drawImage(defaultGhost, randomX,randomY, 35, 35); //Create new ghost
     ghostPos = [randomX, randomY];
     return ghostPos; //Need the position to compare with click
   }
 
   //Making the ghost pops up with random times
   (function loop() {
-    //Positioning the score
+
+    //Positioning the score board
     ctx.clearRect(6, 12, 150, 25);
-    ctx.fillText("Score: "+boardScore, 20, 30);
+    ctx.fillText("Score: " + boardScore, 20, 30);
+    ctx.clearRect(200, 10, 110, 22);
+    ctx.fillText("Level: " + lvl, 200, 30);
+    ctx.clearRect(420, 10, 170, 22);
+    ctx.fillText("Bullets: " + bullets, 420, 30);
     
     //New random position each iteration
-    var time = randomBtw(300, 900);//Random time to ghost appears
+    let time = randomBtw(starterTime[0], starterTime[1]);//Random time to ghost appears
     
     function ghostBusting(){
-      if(timer != null) loop();
-      let ghostPosition = popGhost(); //Getting the ghost position
-      let hit = false; //Trigger when hit ghost
-      window.onclick = function(e){
+      //Passing the player to the next level
+      if(boardScore == lvl*10){
+        lvl += 1;
+        bullets += 20;
+        min += 1;
+        sec = 30;
+        starterTime = [starterTime[0]-150, starterTime[1]-150];
+      }
+      
+      if(timer != null){
+        loop(); //Finish game when time ends
+        let ghostPosition = popGhost(); //Getting the ghost position
+        let hit = false; //Trigger when hit ghost
 
-        let clickPos = [e.layerX, e.layerY]; //Getting the click position
-        ctx.fillRect(clickPos[0],clickPos[1],5,5); //Pointing clicked spots
-
-        //Checking when player hits ghost and increasing score
-        if(clickPos[0] > ghostPosition[0] & clickPos[0] < ghostPosition[0]+35){
-          if(clickPos[1] > ghostPosition[1] & clickPos[1] < ghostPosition[1]+35){
-
-            //Preventing the player to hit the same target more than once
-            if(hit == true){
-              console.log("bluuu");
-            } else {
-              console.log("bleh");
-              hit = true;
-              boardScore ++;
-            }
-
+        //This happens when clicks
+        window.onclick = function(e){
+          if(bullets <= 0){
+            bullets = 0;
+          } else {
+            bullets --;
           }
-        }//I will put an else here with the 'miss' sound
+
+          let clickPos = [e.layerX, e.layerY]; //Getting the click position
+          ctx.fillRect(clickPos[0],clickPos[1],5,5); //Pointing clicked spots
+
+          //Checking when player hits ghost and increasing score
+          if(clickPos[0] > ghostPosition[0] & clickPos[0] < ghostPosition[0]+35){
+            if(clickPos[1] > ghostPosition[1] & clickPos[1] < ghostPosition[1]+35){
+
+              //Preventing the player to hit the same target more than once
+              if(hit == true){
+                console.log("bluuu");
+              } else {
+                console.log("bleh");
+                hit = true;
+                boardScore ++;
+              }
+
+            }
+          }//I will put an else here with the 'miss' sound
+          
+        }//Window onclick function
+
+      } else { //if - ends the game when time goes 0
+        //create here a board with results
         
-      }//Window onclick function
+        window.onclick = function(e){}
+      }
 
     }//GhostBusting function
     
     setTimeout(ghostBusting, time);//Random time for ghost appearing
+
+    //Tracking the iterations to force last frame to appears
+    //This is fixing the behavior of showing player still have bullets after end
+    iterations ++;
+    lastFrame ++;
+    if(lastFrame == iterations){ //Forcing the last iteration
+      timer = null;
+    }
+
+      console.log("speed: ", starterTime[0], starterTime[1], "level: ", lvl, "bullets", bullets, "time", min, sec);
+    
 
   }());//Loop function
 
