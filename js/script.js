@@ -1,13 +1,16 @@
 /*
-Style the game and put on the sound effects
+TODO: Style the game and put on the sound effects
 */
+const FONT = "24px Titan One";
+const BULLETS = 15;
+const TIME = "TIME"; 
 
 window.onload = function(){
 
   //Defining canvas and styles
   canvas = document.getElementById("main-canvas");
   ctx = canvas.getContext("2d");
-  ctx.font = '24px Titan One';
+  ctx.font = FONT;
 
   //ctx.fillRect (6, 12, 150, 20);//Score Position reference
   //ctx.fillRect (200, 10, 110, 22);//LVL Position reference
@@ -17,7 +20,7 @@ window.onload = function(){
   //Drawing the top info
   let boardScore = 0,
       lvl = 1,
-      bullets = 15,
+      bullets = BULLETS,
       starterTime = [1100, 1601],
 
   //Defining game timing and countdown timer
@@ -26,19 +29,20 @@ window.onload = function(){
       timer = null,
 
   //Forcing last iteration after bullets go 0
+  //This is fixing a behavior to not go to 0 bullets on screen
       iterations = 0,
       lastFrame = 1;
 
   //Simple timer
-  function timing(){
+  const timing = () => {
     ctx.clearRect(780, 10, 155, 20);//Clear canvas where timer goes
-    ctx.fillText("Time: " + min + ":" + sec, 800, 30);//Draw timer on canvas
+    ctx.fillText(TIME + " : " + min + ":" + sec, 800, 30);//Draw timer on canvas
     sec--;
     
     if(sec < 10){
       sec = "0" + sec;//Fixing the left 0 on timer
     }
-    if(sec == "0-1"){
+    if(sec === "0-1"){
       min--;
       sec = 60;
     }
@@ -48,7 +52,7 @@ window.onload = function(){
       lastFrame --;
     }
     //Stoping timer and setting timer null to finish the game
-    if(min < 0 && sec == 60){
+    if(min < 0 && sec === 60){
       clearInterval(timer);
       timer = null;
     }
@@ -68,7 +72,7 @@ window.onload = function(){
   function popGhost() {
     let randomX = randomBtw(30, 920);
     let randomY = randomBtw(30, 610);
-    ctx.clearRect(ghostPos[0],ghostPos[1],35,35); //Cler last ghost
+    ctx.clearRect(ghostPos[0],ghostPos[1],35,35); //Clear last ghost
     ctx.drawImage(defaultGhost, randomX,randomY, 35, 35); //Create new ghost
     ghostPos = [randomX, randomY];
     return ghostPos; //Need the position to compare with click
@@ -95,7 +99,7 @@ window.onload = function(){
         bullets += 20;
         min += 1;
         sec = 30;
-        starterTime = [starterTime[0]-150, starterTime[1]-150];
+        starterTime = [starterTime[0]-50, starterTime[1]-50];//Ghost appearing speed
       }
       
       if(timer != null){
