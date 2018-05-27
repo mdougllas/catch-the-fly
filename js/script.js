@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 TODO: Review the code and make it better
+=======
+TODO: Style the game and put on the sound effects
+>>>>>>> 29e5a16d804efdcf9e10c43f5d93dbaf2dd0b881
 */
 const FONT = "16px Titan One",
       FONTCOLOR = "white",
@@ -118,6 +122,10 @@ let loadGame = function(){
     dieGhost.src = 'images/ghost-die.png';
     let bulletHole = new Image();
     bulletHole.src = 'images/bullet-hole.png';
+<<<<<<< HEAD
+=======
+    //
+>>>>>>> 29e5a16d804efdcf9e10c43f5d93dbaf2dd0b881
 
     //Generating random between 2 given numbers
     function randomBtw(min, max) {
