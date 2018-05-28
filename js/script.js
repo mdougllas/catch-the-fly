@@ -53,8 +53,7 @@ let loadGame = function(){
     bgMusic.play();
 
     //Defining canvas and styles
-    let canvas = document.getElementById(CANVAS),
-        canvas.width
+    let canvas = document.getElementById(CANVAS);
     ctx = canvas.getContext(CONTEXT);
     ctx.font = FONT;
     ctx.fillStyle = FONTCOLOR;
