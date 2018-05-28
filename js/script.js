@@ -20,19 +20,23 @@ let loadGame = function(){
 
   //Game intro elements
   let startButton = document.getElementById("start-game"),
-  intro = document.getElementById("intro"),
+      intro = document.getElementById("intro"),
 
-  //Game end elements
-  end = document.getElementById("end"),
-  finalScore = document.getElementsByTagName("p"),
-  playAgain = document.getElementById("play-again"),
+      //Game end elements
+      end = document.getElementById("end"),
+      finalScore = document.getElementsByTagName("p"),
+      playAgain = document.getElementById("play-again"),
 
-  //Starting sounds
-  bgMusic = new Audio('sounds/bg-music.mp3'),
-  shoot = new Audio('sounds/shoot.mp3'),
-  hitGhost = new Audio('sounds/hit.mp3'),
-  lvlUp = new Audio('sounds/lvlUp.mp3'),
-  gameOver = new Audio('sounds/game-over.mp3');
+      //Starting sounds
+      bgMusic = new Audio('sounds/bg-music.mp3'),
+      shoot = new Audio('sounds/shoot.mp3'),
+      hitGhost = new Audio('sounds/hit.mp3'),
+      lvlUp = new Audio('sounds/lvlUp.mp3'),
+      gameOver = new Audio('sounds/game-over.mp3'),
+
+      //Getting the window size
+      canvasWidth = window.innerWidth,
+      canvasHeight = window.innerHeight;
 
   //Managing volume
   bgMusic.volume = .3;
@@ -43,11 +47,14 @@ let loadGame = function(){
 
   bgMusic.loop = true;//Looping the background music
 
+  
+
   let playGame = function(){// Starting game
     bgMusic.play();
 
     //Defining canvas and styles
-    canvas = document.getElementById(CANVAS);
+    let canvas = document.getElementById(CANVAS),
+        canvas.width
     ctx = canvas.getContext(CONTEXT);
     ctx.font = FONT;
     ctx.fillStyle = FONTCOLOR;
