@@ -3,13 +3,24 @@ body {
   padding: 0;
   font-family: 'Titan One', cursive;
   font-size: 10px;
+  background: url(../images/background.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-#wrap {
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+.center-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 675px;
 }
 
 #end {
@@ -18,8 +29,6 @@ body {
   background: rgba(255, 255, 255, .6);
   position: absolute;
   margin: 0 auto;
-  top: 25%;
-  left: 29%;
   border-radius: 1em;
   padding: 1em;
   text-align: center;
@@ -28,7 +37,6 @@ body {
 }
 
 #main-canvas {
-  background: url(../images/background.jpg);
   cursor: url(blaster.cur) 13 13 , default;
 }
 
@@ -38,8 +46,6 @@ body {
   background: rgba(255, 255, 255, .6);
   position: absolute;
   margin: 0 auto;
-  top: 25%;
-  left: 29%;
   border-radius: 1em;
   padding: 1em;
   text-align: center;

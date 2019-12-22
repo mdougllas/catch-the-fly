@@ -19,24 +19,27 @@ const FONT = "16px Titan One",
 let loadGame = function(){
 
   //Game intro elements
-  let startButton = document.getElementById("start-game"),
-      intro = document.getElementById("intro"),
+  let
+    startButton = document.getElementById("start-game"),
+    intro = document.getElementById("intro"),
 
-      //Game end elements
-      end = document.getElementById("end"),
-      finalScore = document.getElementsByTagName("p"),
-      playAgain = document.getElementById("play-again"),
+    //Game end elements
+    end = document.getElementById("end"),
+    finalScore = document.getElementsByTagName("p"),
+    playAgain = document.getElementById("play-again"),
 
-      //Starting sounds
-      bgMusic = new Audio('sounds/bg-music.mp3'),
-      shoot = new Audio('sounds/shoot.mp3'),
-      hitGhost = new Audio('sounds/hit.mp3'),
-      lvlUp = new Audio('sounds/lvlUp.mp3'),
-      gameOver = new Audio('sounds/game-over.mp3'),
+    //Starting sounds
+    bgMusic = new Audio('sounds/bg-music.mp3'),
+    shoot = new Audio('sounds/shoot.mp3'),
+    hitGhost = new Audio('sounds/hit.mp3'),
+    lvlUp = new Audio('sounds/lvlUp.mp3'),
+    gameOver = new Audio('sounds/game-over.mp3'),
 
-      //Getting the window size
-      canvasWidth = window.innerWidth,
-      canvasHeight = window.innerHeight;
+    //Getting the window size
+    canvasWidth = window.innerWidth,
+    canvasHeight = window.innerHeight
+    console.log(canvasHeight);
+  ;
 
   //Managing volume
   bgMusic.volume = .3;
