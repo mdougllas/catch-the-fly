@@ -1,20 +1,20 @@
-/*
-TODO: Review the code and make it better
-*/
-const FONT = "16px Titan One",
-      FONTCOLOR = "white",
-      SHADOW = 20,
-      SHADOWCOLOR = "white",
-      TIMEWORD = "TIME",
-      SECONDS = 30,
-      MINUTES = 0,
-      GAMELEVEL = 1,
-      GAMESPEED = [1100, 1601],
-      CANVAS = "main-canvas",
-      CONTEXT = "2d";
-      SCORE = 0,
-      BULLETS = 15,
-      LEVEL = 1;
+// TODO: Review the code and make it better
+const
+  FONT = "16px Titan One",
+  FONTCOLOR = "white",
+  SHADOW = 20,
+  SHADOWCOLOR = "white",
+  TIMEWORD = "TIME",
+  SECONDS = 30,
+  MINUTES = 0,
+  GAMELEVEL = 1,
+  GAMESPEED = [1100, 1601],
+  CANVAS = "main-canvas",
+  CONTEXT = "2d";
+  SCORE = 0,
+  BULLETS = 15,
+  LEVEL = 1
+;
 
 let loadGame = function(){
 
@@ -37,8 +37,8 @@ let loadGame = function(){
 
     //Getting the window size
     canvasWidth = window.innerWidth,
-    canvasHeight = window.innerHeight
-    console.log(canvasHeight);
+    canvasHeight = window.innerHeight,
+    margin = canvasWidth / 50
   ;
 
   //Managing volume
@@ -50,21 +50,22 @@ let loadGame = function(){
 
   bgMusic.loop = true;//Looping the background music
 
-  
+  //Defining canvas and styles
+  let canvas = document.getElementById(CANVAS);
+  canvas.setAttribute('width', canvasWidth);
+  canvas.setAttribute('height', canvasHeight);
+  ctx = canvas.getContext(CONTEXT);
+  ctx.font = FONT;
+  ctx.fillStyle = FONTCOLOR;
 
-  let playGame = function(){// Starting game
+  let playGame = function(){ // Starting game
     bgMusic.play();
 
-    //Defining canvas and styles
-    let canvas = document.getElementById(CANVAS);
-    ctx = canvas.getContext(CONTEXT);
-    ctx.font = FONT;
-    ctx.fillStyle = FONTCOLOR;
-
-    //ctx.fillRect (6, 12, 150, 20);//Score Position reference
-    //ctx.fillRect (200, 10, 110, 22);//LVL Position reference
-    //ctx.fillRect (420, 10, 170, 22);//Bullets spent reference
-    //ctx.fillRect (780, 10, 155, 20);//Reference for timer
+    //References for development
+    ctx.fillRect (margin, margin/2, canvasWidth/5, margin); //Score Position reference (y, x, width, height)
+    ctx.fillRect (canvasWidth/4, margin/2, canvasWidth/5, margin); //LVL Position reference
+    ctx.fillRect ((canvasWidth/3)+(canvasWidth/7), margin/2, canvasWidth/5, margin); //Bullets spent reference
+    // ctx.fillRect ((canvasWidth/3), MARGIN/2, 155, 20); //Reference for timer
 
     //Drawing the top info
     let boardScore = SCORE,
@@ -80,7 +81,7 @@ let loadGame = function(){
         let board = null;
 
         timer = null;//Call the interval to the timing function
-        //timer variable is also responsible for stoping the game
+        //timer variable is also responsible for stopping the game
 
     //Simple timer
     const timing = () => {
@@ -89,7 +90,7 @@ let loadGame = function(){
       sec--;
       
       if(sec < 10){
-        sec = "0" + sec;//Fixing the left 0 on timer
+        sec = "0" + sec; //Fixing the left 0 on timer
       }
       if(sec === "0-1"){
         min--;

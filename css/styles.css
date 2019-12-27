@@ -3,10 +3,6 @@ body {
   padding: 0;
   font-family: 'Titan One', cursive;
   font-size: 10px;
-  background: url(../images/background.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 #wrapper {
@@ -37,6 +33,10 @@ body {
 }
 
 #main-canvas {
+  background: url(../images/background.jpg);
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
   cursor: url(blaster.cur) 13 13 , default;
 }
 
