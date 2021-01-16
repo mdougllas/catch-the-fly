@@ -52,8 +52,8 @@ let loadGame = function(){
 
   //Defining canvas and styles
   let canvas = document.getElementById(CANVAS);
-  canvas.setAttribute('width', canvasWidth);
-  canvas.setAttribute('height', canvasHeight);
+//   canvas.setAttribute('width', canvasWidth);
+//   canvas.setAttribute('height', canvasHeight);
   ctx = canvas.getContext(CONTEXT);
   ctx.font = FONT;
   ctx.fillStyle = FONTCOLOR;
@@ -62,9 +62,9 @@ let loadGame = function(){
     bgMusic.play();
 
     //References for development
-    ctx.fillRect (margin, margin/2, canvasWidth/5, margin); //Score Position reference (y, x, width, height)
-    ctx.fillRect (canvasWidth/4, margin/2, canvasWidth/5, margin); //LVL Position reference
-    ctx.fillRect ((canvasWidth/3)+(canvasWidth/7), margin/2, canvasWidth/5, margin); //Bullets spent reference
+    // ctx.fillRect (margin, margin/2, canvasWidth/5, margin); //Score Position reference (y, x, width, height)
+    // ctx.fillRect (canvasWidth/4, margin/2, canvasWidth/5, margin); //LVL Position reference
+    // ctx.fillRect ((canvasWidth/3)+(canvasWidth/7), margin/2, canvasWidth/5, margin); //Bullets spent reference
     // ctx.fillRect ((canvasWidth/3), MARGIN/2, 155, 20); //Reference for timer
 
     //Drawing the top info
@@ -88,7 +88,7 @@ let loadGame = function(){
       ctx.clearRect(780, 10, 155, 20);//Clear canvas where timer goes
       ctx.fillText(TIMEWORD + ": " + min + ":" + sec, 800, 30);//Draw timer on canvas
       sec--;
-      
+
       if(sec < 10){
         sec = "0" + sec; //Fixing the left 0 on timer
       }
@@ -134,7 +134,7 @@ let loadGame = function(){
     function randomBtw(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     }
-    
+
   //Making ghost randomly popping
     function popGhost(){
       let randomX = randomBtw(50, 900);
@@ -151,7 +151,7 @@ let loadGame = function(){
 
       //New random position each iteration
       let time = randomBtw(gameSpeed[0], gameSpeed[1]);//Random time to ghost appears
-      
+
       function ghostBusting(){
 
         //Passing the player to the next level
@@ -163,7 +163,7 @@ let loadGame = function(){
           sec = 30;
           gameSpeed = [gameSpeed[0]-100, gameSpeed[1]-100];//Ghost appearing speed
         }
-        
+
         if(timer != null){ //Finish game when time ends
           loop();
           let ghostPosition = popGhost(); //Getting the ghost position
@@ -204,7 +204,7 @@ let loadGame = function(){
               shoot.play();
             }else
             shoot.play();
-            
+
           }//Window onclick function
 
         } else { //if - ends the game when time goes 0
