@@ -1,6 +1,6 @@
 // TODO: Review the code and make it better
 const
-  FONT = "16px Titan One",
+  FONT = "14px Titan One",
   FONTCOLOR = "white",
   SHADOW = 20,
   SHADOWCOLOR = "white",
@@ -20,6 +20,7 @@ let loadGame = function(){
 
   //Game intro elements
   let
+  count = 1,
     startButton = document.getElementById("start-game"),
     intro = document.getElementById("intro"),
 
@@ -38,7 +39,7 @@ let loadGame = function(){
     //Getting the window size
     canvasWidth = window.innerWidth,
     canvasHeight = window.innerHeight,
-    margin = canvasWidth / 50
+    margin = canvasWidth / 40
   ;
 
   //Managing volume
@@ -52,8 +53,8 @@ let loadGame = function(){
 
   //Defining canvas and styles
   let canvas = document.getElementById(CANVAS);
-//   canvas.setAttribute('width', canvasWidth);
-//   canvas.setAttribute('height', canvasHeight);
+  canvas.setAttribute('width', canvasWidth);
+  canvas.setAttribute('height', canvasHeight);
   ctx = canvas.getContext(CONTEXT);
   ctx.font = FONT;
   ctx.fillStyle = FONTCOLOR;
@@ -85,8 +86,9 @@ let loadGame = function(){
 
     //Simple timer
     const timing = () => {
-      ctx.clearRect(780, 10, 155, 20);//Clear canvas where timer goes
-      ctx.fillText(TIMEWORD + ": " + min + ":" + sec, 800, 30);//Draw timer on canvas
+    //   ctx.clearRect(canvasWidth / 2, margin * 2, 155, 20);//Clear canvas where timer goes
+    //   ctx.fillRect(canvasWidth / 2, margin * 2, 155, 20);//Clear canvas where timer goes
+    //   ctx.fillText(TIMEWORD + ": " + min + ":" + sec, canvasWidth / 2 + margin, 30);//Draw timer on canvas
       sec--;
 
       if(sec < 10){
@@ -113,6 +115,7 @@ let loadGame = function(){
     //Positioning the score board
     const infoBoard = () => {
       ctx.clearRect(6, 12, 150, 25);
+      ctx.fillRect(canvasHeight / 50, canvasHeight / 100, 150, 25);
       ctx.fillText("Score: " + boardScore, 20, 30);
       ctx.clearRect(200, 10, 110, 22);
       ctx.fillText("Level: " + lvl, 200, 30);
@@ -137,17 +140,22 @@ let loadGame = function(){
 
   //Making ghost randomly popping
     function popGhost(){
-      let randomX = randomBtw(50, 900);
-      let randomY = randomBtw(50, 600);
-      ctx.clearRect(ghostPos[0],ghostPos[1],35,35); //Clear last ghost
-      ctx.drawImage(defaultGhost, randomX,randomY, 35, 35); //Create new ghost
+      let randomX = randomBtw(margin + 15, canvasWidth - (margin + 15));
+      let randomY = randomBtw(margin * 2 + 15, canvasHeight - (margin + 15));
+      ctx.clearRect(ghostPos[0], ghostPos[1], margin + 15, margin + 15); //Clear last ghost
+      ctx.drawImage(defaultGhost, randomX, randomY, margin + 15, margin + 15); //Create new ghost
       ghostPos = [randomX, randomY];
+      console.log("ghost position", ghostPos)
+      console.log("Canvas w", canvasWidth)
+      console.log("Canvas h", canvasHeight)
+      console.log("Counter", count)
+      count ++
       return ghostPos; //Need the position to compare with click
     }
 
-    //Making the ghost pops up with random times
+    //Making the ghost pop up with random times
     (function loop(){
-      ctx.clearRect(ghostPos[0], ghostPos[1]-16, 16, 15);
+      ctx.clearRect(ghostPos[0], ghostPos[1] - 16, margin + 30, margin + 30);
 
       //New random position each iteration
       let time = randomBtw(gameSpeed[0], gameSpeed[1]);//Random time to ghost appears
@@ -178,19 +186,19 @@ let loadGame = function(){
             }
 
             let clickPos = [e.layerX, e.layerY]; //Getting the click position
-            ctx.drawImage(bulletHole, clickPos[0],clickPos[1], 10, 10);//Pointing clicked spots
+            ctx.drawImage(bulletHole, clickPos[0], clickPos[1], 10, 10);//Pointing clicked spots
 
             //Checking when player hits ghost and increasing score
-            if(clickPos[0] > ghostPosition[0] & clickPos[0] < ghostPosition[0]+35){
-              if(clickPos[1] > ghostPosition[1] & clickPos[1] < ghostPosition[1]+35){
+            if(clickPos[0] > ghostPosition[0] & clickPos[0] < ghostPosition[0] + margin + 15){
+              if(clickPos[1] > ghostPosition[1] & clickPos[1] < ghostPosition[1] + margin + 15){
 
                 //Preventing the player to hit the same target more than once
                 if(hit == true){
-                  console.log("bluuu");
+                  null
                 } else {
-                  ctx.clearRect(ghostPos[0],ghostPos[1],32,32); //Clear last ghost
-                  ctx.drawImage(dieGhost, ghostPos[0],ghostPos[1],35,35); //Create new ghost
-                  ctx.fillText("+1", ghostPos[0], ghostPos[1]-3);//Point +1 popping up over ghost
+                  ctx.clearRect(ghostPos[0],ghostPos[1], margin + 15, margin + 15); //Clear last ghost
+                  ctx.drawImage(dieGhost, ghostPos[0], ghostPos[1], margin + 15, margin + 15); //Showing hurt ghost
+                  ctx.fillText("+1", ghostPos[0], ghostPos[1] - 3);//Point +1 popping up over ghost
                   hitGhost.play();
                   hit = true;
                   boardScore ++;
@@ -234,7 +242,7 @@ let loadGame = function(){
   playAgain.onclick = function(){
     end.style = "display:none";
     bgMusic.currentTime = 0;
-    ctx.clearRect(0, 0, 950, 650);
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     playGame();
   }
 }//Load Game function
