@@ -62,12 +62,6 @@ let loadGame = function(){
   let playGame = function(){ // Starting game
     bgMusic.play();
 
-    //References for development
-    // ctx.fillRect (margin, margin/2, canvasWidth/5, margin); //Score Position reference (y, x, width, height)
-    // ctx.fillRect (canvasWidth/4, margin/2, canvasWidth/5, margin); //LVL Position reference
-    // ctx.fillRect ((canvasWidth/3)+(canvasWidth/7), margin/2, canvasWidth/5, margin); //Bullets spent reference
-    // ctx.fillRect ((canvasWidth/3), MARGIN/2, 155, 20); //Reference for timer
-
     //Drawing the top info
     let boardScore = SCORE,
         lvl = LEVEL,
@@ -86,9 +80,8 @@ let loadGame = function(){
 
     //Simple timer
     const timing = () => {
-    //   ctx.clearRect(canvasWidth / 2, margin * 2, 155, 20);//Clear canvas where timer goes
-    //   ctx.fillRect(canvasWidth / 2, margin * 2, 155, 20);//Clear canvas where timer goes
-    //   ctx.fillText(TIMEWORD + ": " + min + ":" + sec, canvasWidth / 2 + margin, 30);//Draw timer on canvas
+      ctx.clearRect(canvasWidth / 1.7, 15, 75, 20);//Clear canvas where timer goes
+      ctx.fillText(TIMEWORD + ": " + min + ":" + sec, canvasWidth / 1.7, 30);//Draw timer on canvas
       sec--;
 
       if(sec < 10){
@@ -114,13 +107,12 @@ let loadGame = function(){
 
     //Positioning the score board
     const infoBoard = () => {
-      ctx.clearRect(6, 12, 150, 25);
-      ctx.fillRect(canvasHeight / 50, canvasHeight / 100, 150, 25);
-      ctx.fillText("Score: " + boardScore, 20, 30);
-      ctx.clearRect(200, 10, 110, 22);
-      ctx.fillText("Level: " + lvl, 200, 30);
-      ctx.clearRect(420, 10, 170, 22);
-      ctx.fillText("Bullets: " + bullets, 420, 30);
+      ctx.clearRect(canvasWidth / 40, 12, 150, 25);
+      ctx.fillText("Score: " + boardScore, canvasWidth / 40, 30);
+      ctx.clearRect(canvasWidth / 5, 10, 65, 22);
+      ctx.fillText("Level: " + lvl, canvasWidth / 5, 30);
+      ctx.clearRect(canvasWidth / 2.7, 10, 85, 22);
+      ctx.fillText("Bullets: " + bullets, canvasWidth / 2.7, 30);
     }
 
     //Defining game images
