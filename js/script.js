@@ -211,7 +211,7 @@ let loadGame = function(){
           //create here a board with results
           bgMusic.pause();
           gameOver.play();
-          end.style = "display: block";
+          end.style = "display: flex";
           finalScore[1].innerHTML = "Your score: "+boardScore;
           finalScore[2].innerHTML = "Your level: "+lvl;
           window.onclick = function(e){}
@@ -232,7 +232,7 @@ let loadGame = function(){
   startButton.onclick = playGame;
 
   playAgain.onclick = function(){
-    end.style = "display:none";
+    end.style = "display: none";
     bgMusic.currentTime = 0;
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     playGame();

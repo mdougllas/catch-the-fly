@@ -6,6 +6,12 @@ body {
   background-color: gray;
 }
 
+h1 {
+    color: rgb(241, 1, 1);
+    text-shadow: rgb(0, 0, 0) 5px 5px;
+    margin-top: 0
+  }
+
 #wrapper {
   display: flex;
   flex-direction: column;
@@ -20,40 +26,82 @@ body {
   align-items: center;
 }
 
-#end {
-  width: 500px;
-  height: 300px;
-  background: rgba(255, 255, 255, .6);
-  position: absolute;
-  margin: 0 auto;
-  border-radius: 1em;
-  padding: 1em;
-  text-align: center;
-  font-size: 2.3em;
-  display: none;
-}
-
 #main-canvas {
-  background: url(../images/background.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  cursor: url(blaster.cur) 13 13 , default;
+    background: url(../images/background.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: url(blaster.cur) 13 13 , default;
+  }
+
+@media screen and (min-width: 768px) {
+    #intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 500px;
+        height: 300px;
+        background: rgba(255, 255, 255, .6);
+        position: absolute;
+        margin: 0 auto;
+        border-radius: 1em;
+        padding: 1em;
+        text-align: center;
+        font-size: 2.3em;
+    }
+
+    #end {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 500px;
+        height: 300px;
+        background: rgba(255, 255, 255, .6);
+        position: absolute;
+        margin: 0 auto;
+        border-radius: 1em;
+        padding: 1em;
+        text-align: center;
+        font-size: 2.3em;
+        display: none;
+      }
 }
 
-#intro {
-  width: 500px;
-  height: 300px;
-  background: rgba(255, 255, 255, .6);
-  position: absolute;
-  margin: 0 auto;
-  border-radius: 1em;
-  padding: 1em;
-  text-align: center;
-  font-size: 2.3em;
-}
+@media screen and (max-width: 767px) {
+    #intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 87%;
+        height: 90%;
+        background: rgba(255, 255, 255, .6);
+        position: absolute;
+        border-radius: 1em;
+        padding: 1em;
+        text-align: center;
+        font-size: 2.3em;
+    }
+    #start-game {
+        width: 25%;
+        height: 3%;
+    }
 
-h1 {
-  color: rgb(241, 1, 1);
-  text-shadow: rgb(0, 0, 0) 5px 5px;
+    #end {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 87%;
+        height: 95%;
+        background: rgba(255, 255, 255, .6);
+        position: absolute;
+        border-radius: 1em;
+        padding: 1em;
+        text-align: center;
+        font-size: 2.3em;
+        display: none;
+      }
 }
